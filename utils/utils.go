@@ -3,6 +3,8 @@ package utils
 import (
 	"fmt"
 	"os"
+	"sort"
+	"strings"
 )
 
 func GetInput(path string) (string, error) {
@@ -12,4 +14,23 @@ func GetInput(path string) (string, error) {
 	}
 
 	return string(data), nil
+}
+
+func PerLine(input string, function func(int, string) int) int {
+	var total int
+	lines := strings.Split(input, "\n")
+	for i, line := range lines {
+		total += function(i, line)
+	}
+
+	return total
+}
+
+func FindMinN(slice []int, n int) []int {
+	if n == 0 {
+		return []int{}
+	}
+	sort.Ints(slice)
+
+	return slice[:n]
 }
